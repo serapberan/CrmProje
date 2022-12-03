@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_CRMLayout.cshtml";
+}
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<h1>Müşteri Ajax İşlemleri</h1>
+<br />
+<button type="button" id="btncustomerlist" class="btn btn-outline-dark">Müşteri Listesi</button>
+<button type="button" id="btncustomeradd" class="btn btn-outline-primary">Müşteri Ekle</button>
+<button type="button" id="btncustomerget" class="btn btn-outline-success">Müşteri Getir</button>
+<button type="button" id="btncustomerdelete" class="btn btn-outline-danger">Müşteri Sil</button>
+<button type="button" id="btncustomerupdate" class="btn btn-outline-warning">Müşteri Güncelle</button>
+<br />
+<br />
+<button type="button" id="btnsweet" class="btn btn-outline-warning">Alert</button>
+
+<br />
+<br />
+
+<div id="customerlist">
+
+</div>
+
+<br />
+
+<div class="form-group">
+
+    <input type="text" id="txtcustomername" placeholder="Müşteri Adını Giriniz" class="form-control" />
+    <br />
+    <input type="text" id="txtcustomersurname" placeholder="Müşteri Soyadını Giriniz" class="form-control" />
+    <br />
+    <input type="text" id="txtcustomermail" placeholder="Müşteri Mailini Giriniz" class="form-control" />
+    <br />
+    <input type="text" id="txtcustomerphone" placeholder="Müşteri Telefonunu Giriniz" class="form-control" />
+    <br />
+
+</div>
+
+<br />
+
+<div class="form-group">
+    <input type="text" placeholder="Aranacak Id Giriniz" id="txtid" class="form-control" />
+</div>
+<br />
+
+<div id="customergetbyid">
+
+</div>
+
+<br />
+<div class="form-group">
+    <input type="text" class="form-control" id="txtdeletedid" placeholder="Silinecek ID değerini giriniz" />
+</div>
+
+
+<br />
+<div class="form-group">
+    <h4>Güncelleme Paneli</h4>
+    <input type="text" class="form-control" id="txteditid" placeholder="Güncellenecek id" />
+    <br />
+    <input type="text" class="form-control" id="txtname" placeholder="Güncellenecek ad" />
+    <br />
+    <input type="text" class="form-control" id="txtnsurname" placeholder="Güncellenecek Soyad" />
+    <br />
+    <input type="text" class="form-control" id="txtmail" placeholder="Güncellenecek mail" />
+    <br />
+    <input type="text" class="form-control" id="txtphone" placeholder="Güncellenecek Telefon" />
+    <br />
+</div>
+
+<script>
+
+    $("#btncustomerlist").click(function () {
+
+        $.ajax({
+
+            contentType: "application/json",
+            dataType: "json",
+            type: "get",
+            url: "/Admin/AdminCustomer/CustomerList/",
+            success: function (funk1) {
+                let values = jQuery.parseJSON(funk1);
+                console.log(values);
+
+                let tablehtml = "<table class=table table-bordered> <tr><th>Müşteri ID</th><th>Müşteri Adı </th> <th>Müşteri Soyadı</th> <th>Müşteri Mail</th></tr>";
+
+                $.each(values, (index, item) => {
+                    tablehtml += ` <tr><td>${item.CustomerID}</td>
+                                    <td>${item.CustomerName}</td>
+                                    <td>${item.CustomerSurname}</td>
+                                    <td>${item.CustomerMail}</td></tr> `
+
+                });
+
+                tablehtml += "</table>";
+                $("#customerlist").html(tablehtml);
+
+            }
+
+        });
+    });
+
+    //....................EKLEME.........................
+    $("#btncustomeradd").click(function () {
+        let customervalues = {
+           
+            CustomerName: $("#txtcustomername").val(),
+            CustomerSurname: $("#txtcustomersurname").val(),
+            CustomerMail: $("#txtcustomermail").val(),
+            CustomerPhone: $("#txtcustomerphone").val()
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/Admin/AdminCustomer/AddCustomer/",
+            data: customervalues,
+            success: function (funk2) {
+                let result = jQuery.parseJSON(funk2);
+                alert("Müşteri başarılı bir şekilde eklendi");
+            }
+        });
+    });
+
+    //...........................BULMA......................................
+    $("#btncustomerget").click(x => {
+        let id = $("#txtid").val();
+
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "get",
+            url: "/Admin/AdminCustomer/GetByID/",
+            data: { CustomerID: id },
+            success: function (funk3) {
+                let result = jQuery.parseJSON(funk3);
+                console.log(result);
+
+                let tablehtml2 = `<table class=table table-bordered><tr><th>Müşteri ID</th><th>Müşteri Adı</th><th>Müşteri Soyadı</th></tr>
+                                    <tr><td>${result.CustomerID}</td>
+                                    <td>${result.CustomerName}</td>
+                                    <td>${result.CustomerSurname}</td></tr></table>`;
+
+                $("#customergetbyid").html(tablehtml2);
+            }
+        });
+    });
+
+
+    //......................SİLME.........................................................
+
+    $("#btncustomerdelete").click(x => {
+        let id = $("#txtdeletedid").val();
+        $.ajax({
+            url: "/Admin/AdminCustomer/DeleteCustomer/" + id,
+            type: "get",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (funk4) {
+                alert("Müşteri Başarılı Bir Şekilde Silindi.")
+            }
+        });
+    });
+
+    //.............................GÜNCELLEME................................................................
+
+
+    $("#btncustomerupdate").click(function () {
+        
+        let values = {
+            CustomerID: $("#txteditid").val(),
+            CustomerName: $("#txtname").val(),
+            CustomerSurname: $("#txtnsurname").val(),
+            CustomerMail: $("#txtmail").val(),
+            CustomerPhone: $("#txtphone").val()
+          
+        };
+
+        $.ajax({
+            type: "get",
+            url: "/Admin/AdminCustomer/UpdateCustomer/",
+            data: values,
+            success: function (funk5) {
+                alert("Güncelleme İşlemi yapıldı");
+            }
+        });
+    });
+
+</script>

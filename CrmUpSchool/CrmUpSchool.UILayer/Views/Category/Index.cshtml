@@ -1,0 +1,29 @@
+﻿@model List<Crm.UpSchool.EntityLayer.Concrete.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_CRMLayout.cshtml";
+}
+
+<h1>Index</h1>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<table class="table  table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Kategori Adı</th>
+        <th>Durum</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.CategoryID</td>
+            <td>@item.CategoryName</td>
+            <td><a href="" class="btn btn-warning">Durum</a></td>
+            <td><a href="DeleteCategory" class="btn btn-danger">Sil</a></td>
+            <td><a href="UpdateCategory" class="btn btn-success">Guncelle</a></td>
+        </tr>
+
+    }
+</table>

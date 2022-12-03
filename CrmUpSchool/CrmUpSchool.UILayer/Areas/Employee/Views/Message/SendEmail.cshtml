@@ -1,0 +1,21 @@
+﻿@model MailRequet
+@{
+    ViewData["Title"] = "SendEmail";
+    Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
+}
+
+
+<h1>Mail Gönderme Ekranı</h1>
+<form class="form-group" method="post">
+    <label>Alıcı Mail</label>
+    <input type="text" asp-for="ReceiverEmail" class="form-control" />
+    <br />
+    <label>Konu</label>
+    <input type="text" asp-for="EmailSubject" class="form-control" />
+    <br />
+    <label>Mesaj</label>
+    <textarea cols="3" rows="5" asp-for="EmailContet" class="form-control"></textarea>
+    <br />
+    <button class="btn btn-primary">Gönder</button>
+</form>
+

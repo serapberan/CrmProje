@@ -1,0 +1,16 @@
+﻿@model Crm.UpSchool.EntityLayer.Concrete.Category
+@{
+    ViewData["Title"] = "AddCategory";
+    Layout = "~/Views/Shared/_CRMLayout.cshtml";
+}
+
+<h1>AddCategory</h1>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<form class="form-group" method="post">
+    <label>Kategori Adı</label>
+    <input type="text" asp-for="CategoryName" class="form-control" />
+    <label>Kategori Açıklaması</label>
+    <input type="text" asp-for="CategoryDecription" class="form-control" />
+    <button type="submit" class="btn btn-dark" style="border-radius:10%">Kategori Ekle</button>
+</form>

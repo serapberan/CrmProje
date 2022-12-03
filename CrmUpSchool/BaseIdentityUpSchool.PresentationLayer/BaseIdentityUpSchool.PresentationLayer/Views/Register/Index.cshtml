@@ -1,0 +1,41 @@
+﻿@model AppUserRegisterViewModel
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<script src="~/js/site.js"></script>
+
+<br />
+<br />
+<div class="container">
+    <form method="post">
+        <h2>Yeni Üye Kaydı</h2>
+        <br />
+        <label>Adınız</label>
+        <input type="text" class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-info"></span>
+        <br />
+        <label>Soyadınız</label>
+        <input type="text" class="form-control" asp-for="Surname" />
+        <span asp-validation-for="Surname" class="text-info"></span>
+        <br />
+        <label>Kullanıcı Adınız</label>
+        <input type="text" class="form-control" asp-for="Username" />
+        <span asp-validation-for="Username" class="text-info"></span>
+        <br />
+        <label>Mailiniz</label>
+        <input type="text" class="form-control" asp-for="Mail" />
+        <span asp-validation-for="Mail" class="text-info"></span>
+        <br />
+        <label>Şifreniz</label>
+        <input type="text" class="form-control" asp-for="Password" />
+        <span asp-validation-for="Password" class="text-info"></span>
+        <br />
+        <label>Şifre Tekrar</label>
+        <input type="text" class="form-control" asp-for="Confirmpassword" />
+        <span asp-validation-for="Confirmpassword" class="text-info"></span>
+        <br />
+        <div asp-validation-summary="ModelOnly" class="text-success"></div>
+        <button class="btn btn-outline-primary">Üyeyi Kaydet</button>
+    </form>
+</div>

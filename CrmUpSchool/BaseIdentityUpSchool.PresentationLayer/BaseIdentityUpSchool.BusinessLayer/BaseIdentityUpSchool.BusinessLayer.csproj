@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BaseIdentityUpSchool.DataAccessLayer\BaseIdentityUpSchool.DataAccessLayer.csproj" />
+    <ProjectReference Include="..\BaseIdentityUpSchool.EntityLayer\BaseIdentityUpSchool.EntityLayer.csproj" />
+  </ItemGroup>
+
+</Project>
